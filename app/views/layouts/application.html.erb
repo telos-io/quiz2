@@ -10,6 +10,7 @@
   <h1>Idea Factory</h1>
   <% if user_signed_in? %>
     Hello <%= current_user.full_name %>,
+    <%= link_to "New Idea", new_idea_path %> | 
     <%= link_to "Logout", sessions_path, method: :delete,
              data: {confirm: "are you sure you want to log out?"}%>
   <% else %>
