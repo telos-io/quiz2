@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :ideas do
     resources :comments
+    resources :likes, only: [:create, :destroy]
   end
 
   resources :users, only: [:new, :create]

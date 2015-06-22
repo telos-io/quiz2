@@ -22,6 +22,7 @@ class IdeasController < ApplicationController
 
   def show
     @comment = Comment.new
+    @like = @idea.like_for(current_user)
   end
 
   def edit
