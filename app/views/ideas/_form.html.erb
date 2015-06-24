@@ -1,0 +1,29 @@
+<% if @idea.errors.any? %>
+  <ul>
+    <% @idea.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @idea do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+  <%= f.label :joining_user_ids %>
+  <%= f.collection_check_boxes :joining_user_ids,
+                                User.where(["id != ?", current_user.id]),
+                                :id, :full_name %>
+
+  <%= f.submit %>
+
+  </div>
+
+<% end %>

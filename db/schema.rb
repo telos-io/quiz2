@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622192340) do
+ActiveRecord::Schema.define(version: 20150624010345) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "idea_id"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 20150622192340) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "joins", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "idea_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "joins", ["idea_id"], name: "index_joins_on_idea_id"
+  add_index "joins", ["user_id"], name: "index_joins_on_user_id"
 
   create_table "likes", force: :cascade do |t|
     t.integer  "idea_id"

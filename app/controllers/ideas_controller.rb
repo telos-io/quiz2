@@ -1,5 +1,6 @@
 class IdeasController < ApplicationController
   before_action :find_idea, only: [:show, :edit, :update, :destroy]
+  before_action :idea_params, only: [:create, :update]
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
@@ -11,7 +12,6 @@ class IdeasController < ApplicationController
   end
 
   def create
-    idea_params = params.require(:idea).permit(:title, :body)
     @idea = Idea.new(idea_params)
     if @idea.save
       redirect_to ideas_path, notice: "Idea Created"
@@ -22,16 +22,14 @@ class IdeasController < ApplicationController
 
   def show
     @comment = Comment.new
+    @join = @idea.joins
     @like = @idea.like_for(current_user)
   end
 
   def edit
-    #@idea = Idea.find params[:id]
   end
 
   def update
-    #@idea = Idea.find params[:id]
-    idea_params = params.require(:idea).permit(:title, :body)
     if @idea.update idea_params
       redirect_to idea_path(@idea), notice: "Idea Updated"
     else
@@ -48,6 +46,10 @@ private
 
   def find_idea
     @idea = Idea.find params[:id]
+  end
+
+  def idea_params
+    idea_params = params.require(:idea).permit(:title, :body, {joining_user_ids: []})
   end
 
 end

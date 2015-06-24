@@ -12,13 +12,17 @@
   <%= link_to "Like", idea_likes_path(@idea), method: :post %>
 <% end %>
 
+<h2>Collaborators</h2>
+<% @idea.users.each do |user| %>
+  <p><%= user.full_name %></p>
+  <hr>
+<% end %>
+
 <h2>Comments</h2>
 <% @idea.comments.each do |comment| %>
   <p><%= comment.body %></p>
   <hr>
 <% end %>
-
-<hr>
 
 <% if @comment.errors.any? %>
   <ul>>
